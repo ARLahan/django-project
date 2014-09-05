@@ -1,19 +1,19 @@
 # Base development dependencies:
 # (includes local requirements)
 -r local.txt
-Django>=1.7
-Jinja2>=2.7.3
-MarkupSafe>=0.23
-Pillow>=2.5.3
-django-jinja>=1.0.4
-gevent>=1.0.1
-greenlet>=0.4.3
-psycopg2>=2.5.3
-six>=1.7.3
-sqlparse>=0.1.11
-django-braces>=1.4.0
-django-model-utils>=2.2
-logutils>=0.3.3
+Django==1.7
+Jinja2
+MarkupSafe
+Pillow
+django-jinja
+gevent
+greenlet
+psycopg2
+six
+sqlparse
+django-braces
+django-model-utils
+logutils
 #
 #bpython==0.13
 #South==0.8.4
