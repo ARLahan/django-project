@@ -1,8 +1,8 @@
 ========================
-django-twoscoops-project
+django-project
 ========================
 
-A project template for Django 1.7
+A project template adjusted for Django 1.7 and Python 3.4, based on 'django-twoscoops-project'
 
 To use this project follow these steps:
 
