@@ -1,6 +1,7 @@
-from __future__ import absolute_import
-
 from .base import *
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+print("\n\tServer in TESTING mode\n")
 
 ########## IN-MEMORY TEST DATABASE
 DATABASES = {

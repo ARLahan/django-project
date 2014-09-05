@@ -1,70 +1,138 @@
-"""Common settings and globals."""
+"""
+Django settings for {{ project_name }} project.
 
+For more information on this file, see
+https://docs.djangoproject.com/en/dev/topics/settings/
 
-from os.path import abspath, basename, dirname, join, normpath
-from sys import path
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/dev/ref/settings/
+"""
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+import sys
 
-########## PATH CONFIGURATION
-# Absolute filesystem path to the Django project directory:
-DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+########## BASE CONFIGURATION ################################################
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
-# Absolute filesystem path to the top-level project folder:
-SITE_ROOT = dirname(DJANGO_ROOT)
+########## SECRET CONFIGURATION ###############################################
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+# Note: This key should only be used for development and testing.
+SECRET_KEY = "{{ secret_key }}"
+########## END SECRET CONFIGURATION ###########################################
 
-# Site name:
-SITE_NAME = basename(DJANGO_ROOT)
-
-# Add our project to our pythonpath, this way we don't need to type our project
-# name in our dotted import paths:
-path.append(DJANGO_ROOT)
-########## END PATH CONFIGURATION
-
-
-########## DEBUG CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = False
 
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
-TEMPLATE_DEBUG = DEBUG
-########## END DEBUG CONFIGURATION
+TEMPLATE_DEBUG = False
+
+# Hosts/domain names that are valid for this site
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+
+ALLOWED_HOSTS = []
+########## END BASE CONFIGURATION ############################################
 
 
-########## MANAGER CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = (
-    ('Your Name', 'your_email@example.com'),
+########## PATHS CONFIGURATION ###############################################
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
+# Site name:
+SITE_NAME = os.path.basename(os.path.dirname(os.path.dirname(__file__)))
+APP_ROOT = os.path.dirname(os.path.dirname(__file__))
+
+# SQLite3 database file location:
+DATABASE_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'db')
+
+# Add our project to our pythonpath, this way we don't need to
+# type our project name in our dotted import paths:
+sys.path.append(APP_ROOT)
+sys.path.append(DATABASE_ROOT)
+
+#print(SITE_NAME, SITE_ROOT,  BASE_DIR, DATABASE_ROOT)
+########## END PATHS CONFIGURATION ###########################################
+
+
+########## APPs CONFIGURATION ################################################
+# Application definition
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
+
+DJANGO_APPS = (
+    # Default Django apps:
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    #'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # Useful template tags:
+    # 'django.contrib.humanize',
+
+    # Admin panel and documentation:
+    'django.contrib.admin',
+    # 'django.contrib.admindocs',
 )
 
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
-MANAGERS = ADMINS
-########## END MANAGER CONFIGURATION
+# Third party apps for this project
+THIRDPARTY_APPS = (
+    'django_jinja',
+    'django_extensions',
+)
+
+# Apps specific for this project go here.
+LOCAL_APPS = (
+    #'website',
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRDPARTY_APPS + LOCAL_APPS
+#
+########## END APPs CONFIGURATION ############################################
 
 
-########## DATABASE CONFIGURATION
+# MIDDLEWARE CONFIGURATION ##################################################
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+########## END MIDDLEWARE CONFIGURATION #####################################
+
+
+########## URL CONFIGURATION and APPLICATION CONFIGURATION ##################
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
+ROOT_URLCONF = '{}.urls'.format(SITE_NAME)
+
+WSGI_APPLICATION = '{}.wsgi.application'.format(SITE_NAME)
+########## END CONFIGURATION and APPLICATION CONFIGURATION ##################
+
+
+########## DATABASE CONFIGURATION ###########################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'CONN_MAX_AGE': 60,
         'NAME': '',
+        'HOST': '',
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'TIME_ZONE': 'UTC'
     }
 }
-########## END DATABASE CONFIGURATION
+########## END DATABASE CONFIGURATION ########################################
 
 
-########## GENERAL CONFIGURATION
+########## GENERAL CONFIGURATION #############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'UTC'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
-SITE_ID = 1
+LANGUAGE_CODE = 'en'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
@@ -76,59 +144,58 @@ USE_L10N = True
 USE_TZ = True
 ########## END GENERAL CONFIGURATION
 
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
+SITE_ID = 1
+########## END GENERAL CONFIGURATION #########################################
 
-########## MEDIA CONFIGURATION
+
+########## MEDIA CONFIGURATION ##############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
-########## END MEDIA CONFIGURATION
+
+# Temporary directory for file uploads
+FILE_UPLOAD_TEMP_DIR = os.path.join(os.path.dirname(BASE_DIR), 'tmp')
+########## END MEDIA CONFIGURATION ###########################################
 
 
-########## STATIC FILE CONFIGURATION
+########## STATIC FILE CONFIGURATION #########################################
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/dev/howto/static-files/
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/static/'
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = (
-    normpath(join(SITE_ROOT, 'static')),
+    os.path.join(BASE_DIR, 'assets'),
+)
+########## END STATIC FILE CONFIGURATION #####################################
+
+
+########## MANAGER CONFIGURATION #############################################
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
+ADMINS = (
+    ('Al-Ramah Lahan', 'alramahlahan@gmail.com'),
 )
 
-# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-########## END STATIC FILE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
+MANAGERS = ADMINS
+########## END MANAGER CONFIGURATION ########################################
 
-
-########## SECRET CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key should only be used for development and testing.
-SECRET_KEY = r"{{ secret_key }}"
-########## END SECRET CONFIGURATION
-
-
-########## SITE CONFIGURATION
-# Hosts/domain names that are valid for this site
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
-########## END SITE CONFIGURATION
-
-
-########## FIXTURE CONFIGURATION
+########## FIXTURE CONFIGURATION ############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
 FIXTURE_DIRS = (
-    normpath(join(SITE_ROOT, 'fixtures')),
+    os.path.join(BASE_DIR, 'fixtures'),
 )
-########## END FIXTURE CONFIGURATION
+########## END FIXTURE CONFIGURATION ########################################
 
 
-########## TEMPLATE CONFIGURATION
+########## TEMPLATE CONFIGURATION ###########################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -143,65 +210,23 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
 TEMPLATE_LOADERS = (
+    'django_jinja.loaders.AppLoader',
+    'django_jinja.loaders.FileSystemLoader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
 
+DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja'
+
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
 TEMPLATE_DIRS = (
-    normpath(join(SITE_ROOT, 'templates')),
+    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'templates', 'website'),
 )
-########## END TEMPLATE CONFIGURATION
+########## END TEMPLATE CONFIGURATION ######################################
 
 
-########## MIDDLEWARE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#middleware-classes
-MIDDLEWARE_CLASSES = (
-    # Default Django middleware.
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-########## END MIDDLEWARE CONFIGURATION
-
-
-########## URL CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
-ROOT_URLCONF = '%s.urls' % SITE_NAME
-########## END URL CONFIGURATION
-
-
-########## APP CONFIGURATION
-DJANGO_APPS = (
-    # Default Django apps:
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
-    # Admin panel and documentation:
-    'django.contrib.admin',
-    # 'django.contrib.admindocs',
-)
-
-# Apps specific for this project go here.
-LOCAL_APPS = (
-)
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
-########## END APP CONFIGURATION
-
-
-########## LOGGING CONFIGURATION
+########## LOGGING CONFIGURATION ###########################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -231,21 +256,7 @@ LOGGING = {
         },
     }
 }
-########## END LOGGING CONFIGURATION
+########## END LOGGING CONFIGURATION #########################################
 
-
-########## WSGI CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
-WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
-########## END WSGI CONFIGURATION
-
-
-########## SOUTH CONFIGURATION
-# See: http://south.readthedocs.org/en/latest/installation.html#configuring-your-django-installation
-INSTALLED_APPS += (
-    # Database migration helpers:
-    'south',
-)
-# Don't need to use South when setting up a test database.
-SOUTH_TESTS_MIGRATE = False
-########## END SOUTH CONFIGURATION
+# TEST RUNNER:
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
