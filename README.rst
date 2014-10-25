@@ -7,7 +7,7 @@ Based on 'django-twoscoops-project'
 A project template adjusted for:
 
 - Python 3.4
-- Django 1.7 and
+- Django 1.7
 - Jinja2 templating system
 
 
@@ -44,10 +44,10 @@ To install Django in the new virtual environment, run the following command::
 Creating your project
 =====================
 
-To create a new Django project called '**icecream_project**' using
+To create a new Django project called '**icecream**' using
 django-twoscoops-project, run the following command::
 
-    $ django-admin.py startproject --template=https://github.com/LahanAR/django-project/archive/master.zip --extension=py,rst,html icecream_project
+    $ django-admin.py startproject --template=https://github.com/LahanAR/django-project/archive/master.zip --extension=py,rst,html icecreamt
 
 
 Installation of Dependencies
