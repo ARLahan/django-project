@@ -1,8 +1,10 @@
 ====================================================
-django-project  based on 'django-twoscoops-project'
+django-project  
+
+based on 'django-twoscoops-project'
 ====================================================
 
-A project template adjusted for::
+A project template adjusted for:
 
 #. Python 3.4
 #. Django 1.7 and
