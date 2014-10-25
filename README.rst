@@ -28,7 +28,9 @@ Create a virtual working environment::
 
     $ pyvenv icecream
 
-You will also need to ensure that the virtualenv has the project directory
+This will install a Python 3.4 environment in the current location (e.g. /home/user/...).
+
+You will also need to ensure that the pyvenv has the project directory
 added to the path. Adding the project directory will allow `django-admin.py` to
 be able to change settings using the `--settings` flag.
 
@@ -75,7 +77,7 @@ Follows Best Practices
    :alt: Two Scoops of Django
    :target: http://twoscoopspress.org/products/two-scoops-of-django-1-6
 
-This project follows best practices as espoused in `Two Scoops of Django: Best Practices for Django 1.6`_.
+This project follows some of the best practices as espoused in `Two Scoops of Django: Best Practices for Django 1.6`_.
 
 .. _`Two Scoops of Django: Best Practices for Django 1.6`: http://twoscoopspress.org/products/two-scoops-of-django-1-6
 
