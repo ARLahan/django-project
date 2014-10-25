@@ -1,6 +1,8 @@
 """
 Django settings for {{ project_name }} project.
 
+Using Jinja2 templating system
+
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
 
@@ -49,9 +51,7 @@ DATABASE_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'db')
 sys.path.append(APP_ROOT)
 sys.path.append(DATABASE_ROOT)
 
-#print(SITE_NAME, SITE_ROOT,  BASE_DIR, DATABASE_ROOT)
 ########## END PATHS CONFIGURATION ###########################################
-
 
 ########## APPs CONFIGURATION ################################################
 # Application definition
@@ -62,7 +62,7 @@ DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
@@ -82,13 +82,12 @@ THIRDPARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    #'website',
+
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRDPARTY_APPS + LOCAL_APPS
 #
 ########## END APPs CONFIGURATION ############################################
-
 
 # MIDDLEWARE CONFIGURATION ##################################################
 MIDDLEWARE_CLASSES = (
@@ -102,7 +101,6 @@ MIDDLEWARE_CLASSES = (
 )
 ########## END MIDDLEWARE CONFIGURATION #####################################
 
-
 ########## URL CONFIGURATION and APPLICATION CONFIGURATION ##################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
 ROOT_URLCONF = '{}.urls'.format(SITE_NAME)
@@ -110,22 +108,13 @@ ROOT_URLCONF = '{}.urls'.format(SITE_NAME)
 WSGI_APPLICATION = '{}.wsgi.application'.format(SITE_NAME)
 ########## END CONFIGURATION and APPLICATION CONFIGURATION ##################
 
-
-########## DATABASE CONFIGURATION ###########################################
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'CONN_MAX_AGE': 60,
-        'NAME': '',
-        'HOST': '',
-        'USER': '',
-        'PASSWORD': '',
-        'TIME_ZONE': 'UTC'
-    }
-}
-########## END DATABASE CONFIGURATION ########################################
-
+# ######### DATABASE CONFIGURATION ###########################################
+#
+# DATABASE CONFIGURATION in:
+# dev = dev.py >> using sqlite3
+# pro = pro.py >> using postgresql+psycopg2
+#
+########## END DATABASE CONFIGURATIONN #######################################
 
 ########## GENERAL CONFIGURATION #############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
@@ -148,7 +137,6 @@ USE_TZ = True
 SITE_ID = 1
 ########## END GENERAL CONFIGURATION #########################################
 
-
 ########## MEDIA CONFIGURATION ##############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -159,7 +147,6 @@ MEDIA_URL = '/media/'
 # Temporary directory for file uploads
 FILE_UPLOAD_TEMP_DIR = os.path.join(os.path.dirname(BASE_DIR), 'tmp')
 ########## END MEDIA CONFIGURATION ###########################################
-
 
 ########## STATIC FILE CONFIGURATION #########################################
 # Static files (CSS, JavaScript, Images)
@@ -175,7 +162,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
 ########## END STATIC FILE CONFIGURATION #####################################
-
 
 ########## MANAGER CONFIGURATION #############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
@@ -193,7 +179,6 @@ FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'fixtures'),
 )
 ########## END FIXTURE CONFIGURATION ########################################
-
 
 ########## TEMPLATE CONFIGURATION ###########################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
@@ -225,7 +210,6 @@ TEMPLATE_DIRS = (
 )
 ########## END TEMPLATE CONFIGURATION ######################################
 
-
 ########## LOGGING CONFIGURATION ###########################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging
@@ -236,6 +220,14 @@ TEMPLATE_DIRS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -246,15 +238,29 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
-    }
+        'django_jinja': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
 }
 ########## END LOGGING CONFIGURATION #########################################
 
