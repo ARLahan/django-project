@@ -6,9 +6,9 @@ Based on 'django-twoscoops-project'
 
 A project template adjusted for:
 
-#. Python 3.4
-#. Django 1.7 and
-#. Jinja2 templating system
+- Python 3.4
+- Django 1.7 and
+- Jinja2 templating system
 
 
 To use this project follow these steps:
@@ -24,7 +24,7 @@ should replace this name with the actual name of your project.*
 
 Working Environment
 ===================
-Create a virtual working environment:
+Create a virtual working environment::
 
     $ pyvenv icecream
 
