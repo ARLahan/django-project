@@ -1,8 +1,8 @@
 ====================================================
-django-project  
-
-based on 'django-twoscoops-project'
+django-project
 ====================================================
+
+Based on 'django-twoscoops-project'
 
 A project template adjusted for:
 
