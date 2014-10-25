@@ -1,7 +1,7 @@
 # Base development dependencies:
-# (includes local requirements)
--r local.txt
-Django==1.7
+# (includes local development requirements)
+-r env.txt
+Django==1.7.1
 Jinja2
 MarkupSafe
 Pillow
@@ -15,5 +15,5 @@ django-braces
 django-model-utils
 logutils
 #
-#bpython==0.13
-#South==0.8.4
+#bpython
+

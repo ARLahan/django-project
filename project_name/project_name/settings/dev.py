@@ -3,10 +3,15 @@
 import os
 from .base import *
 
-
 ########## OVERRIDE BASE DEBUG CONFIGURATION ###############################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
+
+import warnings
+warnings.filterwarnings(
+    'error', r"DateTimeField .* received a naive datetime",
+    RuntimeWarning, r'django\.db\.models\.fields')
+
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
@@ -24,27 +29,20 @@ print("\tPython Path: %s" % sys.path)
 print("\t----------------------\n")
 ########## END DEBUG CONFIGURATION ##########################################
 
-
 ########## OVERRIDE PRODUCTION EMAIL CONFIGURATION ##########################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ########## END EMAIL CONFIGURATION ##########################################
 
-
 ######## OVERRIDE BASE DATABASE CONFIGURATION ###############################
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
- DATABASES = {
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases 
+DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(DATABASE_ROOT, '{}.db'.format(SITE_NAME),
-         'USER': '',
-         'PASSWORD': '',
-         'HOST': '',
-         'PORT': '',
+         'NAME': os.path.join(DATABASE_ROOT, ''.join(SITE_NAME, 'db')),
      }
  }
 ######## END DATABASE CONFIGURATION ##########################################
-
 
 ########## CACHE CONFIGURATION ###############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
@@ -54,7 +52,6 @@ CACHES = {
     }
 }
 ########## END CACHE CONFIGURATION ###########################################
-
 
 ########## DEBUG TOOLBAR CONFIGURATION #######################################
 # See: http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup
