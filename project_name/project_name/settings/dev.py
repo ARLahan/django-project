@@ -19,14 +19,7 @@ TEMPLATE_DEBUG = DEBUG
 #TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 print("\n\tServer in LOCAL/DEVELOPMENT mode")
-print("\tApplication Details:")
-print("--------------------")
-print("\tBase Dir: %s" % BASE_DIR)
-print("\tApp Root: %s" % APP_ROOT)
-print("\tSite Name: %s" % SITE_NAME)
-print("\tDatabase Root: %s" % DATABASE_ROOT)
-print("\tPython Path: %s" % sys.path)
-print("\t----------------------\n")
+
 ########## END DEBUG CONFIGURATION ##########################################
 
 ########## OVERRIDE PRODUCTION EMAIL CONFIGURATION ##########################

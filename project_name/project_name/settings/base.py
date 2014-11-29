@@ -13,15 +13,15 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
-
+from django_extensions.management.commands.generate_secret_key import Command
 ########## BASE CONFIGURATION ################################################
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 ########## SECRET CONFIGURATION ###############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key should only be used for development and testing.
-SECRET_KEY = "{{ secret_key }}"
+# Note: a new secret key is automatically re-generated  
+SECRET_KEY = Command().handle_noargs()
 ########## END SECRET CONFIGURATION ###########################################
 
 DEBUG = False
@@ -44,7 +44,7 @@ SITE_NAME = os.path.basename(os.path.dirname(os.path.dirname(__file__)))
 APP_ROOT = os.path.dirname(os.path.dirname(__file__))
 
 # SQLite3 database file location:
-DATABASE_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'db')
+DATABASE_ROOT = os.path.join(BASE_DIR, 'data/')
 
 # Add our project to our pythonpath, this way we don't need to
 # type our project name in our dotted import paths:
@@ -67,7 +67,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 
     # Useful template tags:
-    # 'django.contrib.humanize',
+    'django.contrib.humanize',
 
     # Admin panel and documentation:
     'django.contrib.admin',
@@ -77,7 +77,9 @@ DJANGO_APPS = (
 # Third party apps for this project
 THIRDPARTY_APPS = (
     'django_jinja',
+    'django_jinja.contrib._humanize',
     'django_extensions',
+    'ckeditor',
 )
 
 # Apps specific for this project go here.
@@ -166,7 +168,7 @@ STATICFILES_DIRS = (
 ########## MANAGER CONFIGURATION #############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Al-Ramah Lahan', 'alramahlahan@gmail.com'),
+    ('Al-Ramah Lahan', 'bytewin@bytewin.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -206,7 +208,6 @@ DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
-    os.path.join(BASE_DIR, 'templates', 'website'),
 )
 ########## END TEMPLATE CONFIGURATION ######################################
 
@@ -266,3 +267,29 @@ LOGGING = {
 
 # TEST RUNNER:
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+#
+##############################################################################
+# CKEDITOR CONFIG #############################################
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'js', 'jquery.min.js')
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_DATE_FOLDERS = False
+CKEDITOR_CONTENT_FOLDER = 'content/'
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_RESTRICT_BY_USER = False
+CKEDITOR_MEDIA_PREFIX = MEDIA_ROOT
+CKEDITOR_CONFIGS = {
+    'default': {
+        "removePlugins": "stylesheetparser",
+        # 'uiColor': '#ACC5E0',
+        'language': LANGUAGE_CODE,
+        'toolbar': 'Extra',
+        'height': 400,
+        'width': '100%',
+        'resize_minWidth': 600,
+        'resize_minHeight': 200,
+        'resize_dir': 'both',
+        'fullPage': False,
+        'allowedContent': True,
+    },
+}

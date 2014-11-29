@@ -1,11 +1,13 @@
 # Base development dependencies:
 # (includes local development requirements)
--r env.txt
+-r dev.txt
 Django==1.7.1
 Jinja2
 MarkupSafe
 Pillow
 django-jinja
+django-localflavor
+django-ckeditor
 gevent
 greenlet
 psycopg2

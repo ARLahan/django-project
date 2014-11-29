@@ -9,13 +9,14 @@ A project template adjusted for:
 - Python 3.4
 - Django 1.7
 - Jinja2 templating system
+- django-ckeditor
 
 
 To use this project follow these steps:
 
 #. Create your working environment
 #. Install Django
-#. Create the new project using the django-two-scoops template
+#. Create the new project using this template
 #. Install additional dependencies
 
 *note: these instructions show creation of a project called "icecream".  You
@@ -59,7 +60,7 @@ Depending on where you are installing dependencies:
 
 In development::
 
-    $ pip install -r requirements/env.txt
+    $ pip install -r requirements/dev.txt
 
 For production::
 
@@ -68,7 +69,7 @@ For production::
 *note: We install production requirements this way because many Platforms as a
 Services expect a requirements.txt file in the root of projects.*
 
-Follows Best Practices
+Based on
 ======================
 
 .. image:: http://twoscoops.smugmug.com/Two-Scoops-Press-Media-Kit/i-C8s5jkn/0/O/favicon-152.png
