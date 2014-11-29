@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
-from django_extensions.management.commands.generate_secret_key import Command
 ########## BASE CONFIGURATION ################################################
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -21,7 +20,7 @@ from django_extensions.management.commands.generate_secret_key import Command
 ########## SECRET CONFIGURATION ###############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: a new secret key is automatically re-generated  
-SECRET_KEY = Command().handle_noargs()
+SECRET_KEY = {{ secret }}
 ########## END SECRET CONFIGURATION ###########################################
 
 DEBUG = False

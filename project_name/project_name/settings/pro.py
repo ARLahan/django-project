@@ -1,9 +1,8 @@
 """Production settings and globals."""
 
 import os
-
 from .base import *
-
+from django_extensions.management.commands.generate_secret_key import Command
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
 # from django.core.exceptions import ImproperlyConfigured
@@ -17,6 +16,12 @@ from .base import *
 #         error_msg = "Set the %s env variable" % setting
 #         raise ImproperlyConfigured(error_msg)
 
+
+########## SECRET CONFIGURATION ###############################################
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+# Note: a new secret key is automatically re-generated  
+SECRET_KEY = Command().handle_noargs()
+########## END SECRET CONFIGURATION ###########################################
 
 ########## PRODUCTION HOST CONFIGURATION #####################################
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
