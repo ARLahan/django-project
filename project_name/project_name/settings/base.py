@@ -19,7 +19,7 @@ import sys
 
 ########## SECRET CONFIGURATION ###############################################
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: a new secret key is automatically re-generated  
+# Note: when in production a new secret key is automatically re-generated  
 SECRET_KEY = {{ secret }}
 ########## END SECRET CONFIGURATION ###########################################
 
