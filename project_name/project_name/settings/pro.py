@@ -11,7 +11,7 @@ from .base import *
 
 
 def get_env_setting(setting):
- """ Get the environment setting or return exception """
+    """ Get the environment setting or return exception """
     try:
         return os.environ[setting]
     except KeyError:

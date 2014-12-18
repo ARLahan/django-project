@@ -1,7 +1,7 @@
 """
 Django settings for {{ project_name }} project.
 
-Using Jinja2 templating system
+Using Django 1.7, Jinja2 templating system through django-jinja, django-ckeditor
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
