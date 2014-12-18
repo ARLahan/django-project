@@ -1,0 +1,6 @@
+# Local development dependencies go here
+-r test.txt
+django-debug-toolbar
+Werkzeug
+django-extensions
+#Sphinx

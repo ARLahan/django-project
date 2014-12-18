@@ -136,6 +136,20 @@ USE_TZ = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
+
+# Decimal separator symbol
+DECIMAL_SEPARATOR = ','
+
+# Boolean that sets whether to add thousand separator when formatting numbers
+USE_THOUSAND_SEPARATOR = True
+
+# Number of digits that will be together, when splitting them by
+# THOUSAND_SEPARATOR. 0 means no grouping, 3 means splitting by thousands...
+NUMBER_GROUPING = 3
+
+# Thousand separator symbol
+THOUSAND_SEPARATOR = '.'
+#
 ########## END GENERAL CONFIGURATION #########################################
 
 ########## MEDIA CONFIGURATION ##############################################
@@ -280,7 +294,7 @@ CKEDITOR_MEDIA_PREFIX = MEDIA_ROOT
 CKEDITOR_CONFIGS = {
     'default': {
         "removePlugins": "stylesheetparser",
-        # 'uiColor': '#ACC5E0',
+        'uiColor': '#ACC5E0',
         'language': LANGUAGE_CODE,
         'toolbar': 'Extra',
         'height': 400,

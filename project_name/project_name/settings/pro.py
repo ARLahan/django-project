@@ -1,20 +1,22 @@
 """Production settings and globals."""
 
+from __future__ import absolute_import
 import os
-from .base import *
+from django.core.exceptions import ImproperlyConfigured
 from django_extensions.management.commands.generate_secret_key import Command
+from .base import *
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
 # from django.core.exceptions import ImproperlyConfigured
 
 
-# def get_env_setting(setting):
-#     """ Get the environment setting or return exception """
-#     try:
-#         return os.environ[setting]
-#     except KeyError:
-#         error_msg = "Set the %s env variable" % setting
-#         raise ImproperlyConfigured(error_msg)
+def get_env_setting(setting):
+ """ Get the environment setting or return exception """
+    try:
+        return os.environ[setting]
+    except KeyError:
+        error_msg = "Set the %s env variable" % setting
+        raise ImproperlyConfigured(error_msg)
 
 
 ########## SECRET CONFIGURATION ###############################################
